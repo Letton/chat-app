@@ -27,7 +27,7 @@ export default function AddChatForm({ className, ...props }: AddChatForm) {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(addUserValidator),
-    mode: "onSubmit",
+    reValidateMode: "onSubmit",
   });
 
   useEffect(() => {
@@ -38,8 +38,9 @@ export default function AddChatForm({ className, ...props }: AddChatForm) {
       });
     if (isAdded) {
       toast({
-        title: "Чат успешно создан",
-        description: "Начните вашу переписку прямо сейчас ✨",
+        title: "Приглашение отправлено",
+        description:
+          "Дождитесь, пока собеседник примет ваше приглашение и начните общаться ✨",
       });
     }
   }, [isAdded, errors.email, toast]);

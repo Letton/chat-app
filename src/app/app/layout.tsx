@@ -7,6 +7,10 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SignOutButton from "./SignOutButton";
+import ChatInvitesButton from "./ChatInvitesButton";
+import { db } from "@/lib/db";
+import { getChatsByUserId } from "@/helpers/get-chats-by-user-id";
+import ChatList from "./ChatList";
 
 export default async function AppLayout({
   children,
@@ -16,6 +20,14 @@ export default async function AppLayout({
   const session = await getServerSession(authOptions);
 
   if (!session) notFound();
+
+  const chats = await getChatsByUserId(session.user.id);
+
+  const unseenRequestCount = (
+    (await db.smembers(
+      `user:${session.user.id}:incoming_chat_requests`
+    )) as User[]
+  ).length;
 
   return (
     <>
@@ -34,27 +46,26 @@ export default async function AppLayout({
                 <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
                   Ваши чаты
                 </h2>
-                <div className="space-y-1">
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start truncate"
-                  >
-                    Some Username
-                  </Button>
-                </div>
+                <ChatList sessionId={session.user.id} chats={chats} />
               </div>
               <div className="px-3 py-2">
                 <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
                   Обзор
                 </h2>
                 <div className="space-y-1">
-                  <Button variant="ghost" className="w-full justify-start">
-                    <Plus className="mr-2 w-4 h-4" />
-                    Создать чат
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-start">
-                    <Inbox className="mr-2 w-4 h-4" />
-                    Приглашения в чат
+                  <ChatInvitesButton
+                    sessionId={session.user.id}
+                    initialUnseenRequestCount={unseenRequestCount}
+                  />
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start"
+                    asChild
+                  >
+                    <Link href="/app/add">
+                      <Plus className="mr-2 w-4 h-4" />
+                      Создать чат
+                    </Link>
                   </Button>
                 </div>
               </div>

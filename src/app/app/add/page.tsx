@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 
 export default async function AddChat() {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Card className="w-[350px]">
+    <section className="w-full h-full px-4 py-6 lg:px-8 flex items-center justify-center">
+      <Card className="max-w-md w-full">
         <CardHeader>
           <CardTitle>Создать чат</CardTitle>
           <CardDescription>
@@ -26,6 +26,6 @@ export default async function AddChat() {
           <AddChatForm />
         </CardContent>
       </Card>
-    </div>
+    </section>
   );
 }
