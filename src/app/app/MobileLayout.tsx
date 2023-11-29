@@ -3,26 +3,15 @@
 import { useState, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { usePathname, useRouter } from "next/navigation";
-import { Badge } from "@/components/ui/badge";
-import { chatHrefConstructor, toPusherKey } from "@/lib/utils";
-import { pusherClient } from "@/lib/pusher";
-import { useToast } from "@/components/ui/use-toast";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ToastAction } from "@/components/ui/toast";
 import { Session } from "next-auth";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Menu, MessageCircle, Plus } from "lucide-react";
 import SignOutButton from "./SignOutButton";
 import ChangeThemeButton from "./ChangeThemeButton";
@@ -50,7 +39,7 @@ export default function MobileLayout({
 
   return (
     <div className="md:hidden border-b">
-      <div className="container mx-auto py-6 flex justify-between items-center">
+      <div className="container mx-auto py-4 flex justify-between items-center">
         <Link href="/app" className="w-fit" prefetch={false}>
           <MessageCircle className="w-8 h-8" />
         </Link>

@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "Главная | FastChat",
 };
 
+const dynamic = "force-dynamic";
+const revalidate = 0;
+
 export default async function ApplicationPage() {
   const session = await getServerSession(authOptions);
 

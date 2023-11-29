@@ -53,3 +53,6 @@ export default async function ChatRequsts() {
     </section>
   );
 }
+
+const dynamic = "force-dynamic";
+const revalidate = 0;

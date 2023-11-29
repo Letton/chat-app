@@ -30,32 +30,21 @@ export async function POST(req: Request) {
     if (!hasChatRequest)
       return new Response("No chat request", { status: 400 });
 
-    const newChat = (await db.get(`user:${idToAdd}`)) as User;
+    const [user, friend] = (await Promise.all([
+      db.get(`user:${session.user.id}`),
+      db.get(`user:${idToAdd}`),
+    ])) as [User, User];
 
-    pusherServer.trigger(toPusherKey(`user:${idToAdd}:friends`), "new_friend", {
-      name: session.user.name,
-      email: session.user.email,
-      image: session.user.image,
-      id: session.user.id,
-    });
-
-    pusherServer.trigger(
-      toPusherKey(`user:${session.user.id}:friends`),
+    await pusherServer.trigger(
+      toPusherKey(`user:${idToAdd}:friends`),
       "new_friend",
-      {
-        ...newChat,
-      }
+      user
     );
 
-    pusherServer.trigger(
-      toPusherKey(`user:${session.user.id}:incoming_chat_requests`),
-      "incoming_chat_requests",
-      {
-        senderId: session.user.id,
-        senderEmail: session.user.email,
-        senderName: session.user.name,
-        senderImage: session.user.image,
-      }
+    await pusherServer.trigger(
+      toPusherKey(`user:${session.user.id}:friends`),
+      "new_friend",
+      friend
     );
 
     await db.sadd(`user:${session.user.id}:chats`, idToAdd);

@@ -11,7 +11,7 @@ interface ChatInputProps {
   chatPartner: User;
 }
 
-export default function ChatInput({ chatId, chatPartner }: ChatInputProps) {
+export default function ChatInput({ chatId }: ChatInputProps) {
   const [input, setInput] = useState<string>("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);

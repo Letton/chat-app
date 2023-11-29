@@ -26,7 +26,9 @@ export default function ChatList({ sessionId, chats }: ChatListProps) {
   const pathname = usePathname();
   const [unseenMessages, setUnseenMessages] = useState<Message[]>([]);
   const [friends, setFriends] = useState<User[]>(chats);
+
   const { toast } = useToast();
+
   useEffect(() => {
     pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`));
     pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
@@ -67,7 +69,7 @@ export default function ChatList({ sessionId, chats }: ChatListProps) {
 
     pusherClient.bind("new_message", chatHandler);
     pusherClient.bind("new_friend", newFriendHandler);
-
+    
     return () => {
       pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:chats`));
       pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`));

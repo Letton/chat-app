@@ -27,16 +27,25 @@ export default function ChatInvitesButton({
     pusherClient.subscribe(
       toPusherKey(`user:${sessionId}:incoming_chat_requests`)
     );
+    pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
 
-    const chatRequestHandler = (chatRequest: IncomingChatRequest) =>
-      chatRequest.senderId === sessionId
-        ? setUnseenRequestCount((prev) => prev - 1)
-        : setUnseenRequestCount((prev) => prev + 1);
+    const chatRequestHandler = () => {
+      setUnseenRequestCount((prev) => prev + 1);
+    };
+
+    const addedChatHandler = () => {
+      setUnseenRequestCount((prev) => prev - 1);
+    };
 
     pusherClient.bind("incoming_chat_requests", chatRequestHandler);
+    pusherClient.bind("new_friend", addedChatHandler);
     return () => {
-      pusherClient.unsubscribe(`user:${sessionId}:incoming_chat_requests`);
+      pusherClient.unsubscribe(
+        toPusherKey(`user:${sessionId}:incoming_chat_requests`)
+      );
+      pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`));
       pusherClient.unbind("incoming_chat_requests", chatRequestHandler);
+      pusherClient.unbind("new_friend", addedChatHandler);
     };
   }, [sessionId]);
 
