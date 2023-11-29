@@ -53,7 +53,7 @@ export default async function Chat({ params }: ChatProps) {
   const initialMessages = await getChatMessages(chatId);
 
   return (
-    <section className="w-full h-full max-w-xl mx-auto flex flex-col">
+    <section className="w-full max-h-[calc(100%-89px)] md:max-h-full h-full max-w-xl mx-auto flex flex-col">
       <div className="flex items-center px-4 py-6 lg:px-8 border-b">
         <Avatar className="h-9 w-9">
           <AvatarImage src={chatPartner.image} alt="Avatar" />

@@ -4,7 +4,7 @@ import { HTMLAttributes, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { Loader2, LogOut } from "lucide-react";
-import { signIn, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 interface SignOutButtonProps extends ButtonProps {}
 
@@ -23,7 +23,9 @@ export default function SignOutButton({
       onClick={async () => {
         setIsLoading(true);
         try {
-          await signOut();
+          await signOut({
+            callbackUrl: "/",
+          });
         } catch (err) {
           console.error(err);
         } finally {

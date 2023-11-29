@@ -18,7 +18,7 @@ export default function UserAuthForm({
     event.preventDefault();
     setIsLoading(true);
     try {
-      await signIn("google");
+      await signIn("google", { callbackUrl: "/app" });
     } catch (error) {
     } finally {
       setTimeout(() => {

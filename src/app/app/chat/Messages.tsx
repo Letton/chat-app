@@ -4,8 +4,8 @@ import { cn, toPusherKey } from "@/lib/utils";
 import { Message } from "@/lib/validations/message";
 import { useEffect, useRef, useState } from "react";
 import { format } from "date-fns";
-import { Button } from "@/components/ui/button";
 import { pusherClient } from "@/lib/pusher";
+import Markdown from "react-markdown";
 
 interface MessagesProps {
   initialMessages: Message[];
@@ -24,8 +24,6 @@ export default function Messages({
     pusherClient.subscribe(toPusherKey(`chat:${chatId}`));
 
     const messageHandler = (message: Message) => {
-      console.log(message);
-
       setMessages((prev) => [message, ...prev]);
     };
 
@@ -73,7 +71,9 @@ export default function Messages({
                     }
                   )}
                 >
-                  <span className="break-all">{message.text}</span>
+                  <span>
+                    <Markdown className="break-all">{message.text}</Markdown>
+                  </span>
                   <span className="ml-2 text-xs text-muted-foreground">
                     {formatTimeStamp(message.timestamp)}
                   </span>

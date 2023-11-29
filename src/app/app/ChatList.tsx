@@ -100,6 +100,7 @@ export default function ChatList({ sessionId, chats }: ChatListProps) {
             >
               <Link
                 href={`/app/chat/${chatHrefConstructor(sessionId, chat.id)}`}
+                prefetch={false}
               >
                 <Avatar className="mr-2 w-6 h-6">
                   <AvatarImage src={chat.image} />

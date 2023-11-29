@@ -47,7 +47,7 @@ export default function ChatInvitesButton({
       {...props}
       asChild
     >
-      <Link href="/app/requests">
+      <Link href="/app/requests" prefetch={false}>
         <Inbox className="mr-2 w-4 h-4" />
         Приглашения в чат
         {unseenRequestCount > 0 && (

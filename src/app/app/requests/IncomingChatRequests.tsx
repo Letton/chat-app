@@ -18,8 +18,6 @@ export default function ChatRequests({
   incomingChatRequests,
   sessionId,
 }: ChatRequestsProps) {
-  const router = useRouter();
-
   const [chatRequests, setChatRequests] =
     useState<IncomingChatRequest[]>(incomingChatRequests);
 
