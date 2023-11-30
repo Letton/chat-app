@@ -3,8 +3,8 @@ import UserAuthForm from "./UserAuthForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Аунтефикация",
-  description: "Форма аунтефикации",
+  title: "Аунтефикация | FastChat",
+  description: "Войдите в приложение, используя аккаунт Google",
 };
 
 export default function AuthenticationPage() {

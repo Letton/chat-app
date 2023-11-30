@@ -12,8 +12,10 @@ import { db } from "@/lib/db";
 import { getChatsByUserId } from "@/helpers/get-chats-by-user-id";
 import ChatList from "./ChatList";
 import MobileLayout from "./MobileLayout";
-import { useTheme } from "next-themes";
 import ChangeThemeButton from "./ChangeThemeButton";
+
+const dynamic = "force-dynamic";
+const revalidate = 0;
 
 export default async function AppLayout({
   children,

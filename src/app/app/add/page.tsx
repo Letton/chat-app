@@ -9,7 +9,7 @@ import {
 import AddChatForm from "./AddChatForm";
 
 export const metadata: Metadata = {
-  title: "Создать чат",
+  title: "Пригласить в чат | FastChat",
 };
 
 export default async function AddChat() {

@@ -32,8 +32,14 @@ export default async function HomeLayout({
       </header>
       <main className="h-[calc(100vh-73px)]">{children}</main>
       <footer className="border-t">
-        <div className="container mx-auto py-4 text-muted-foreground text-sm text-right">
-          ©{new Date().getFullYear()} Все права защищены
+        <div className="container mx-auto py-4 text-muted-foreground text-sm flex justify-between">
+          <p>
+            Обратная связь:{" "}
+            <Link href="https://t.me/Letton" className="underline">
+              @Letton
+            </Link>
+          </p>
+          <p>©{new Date().getFullYear()} Все права защищены</p>
         </div>
       </footer>
     </>

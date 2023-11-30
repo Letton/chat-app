@@ -12,7 +12,7 @@ import { db } from "@/lib/db";
 import IncomingChatRequests from "./IncomingChatRequests";
 
 export const metadata: Metadata = {
-  title: "Приглашения в чат",
+  title: "Приглашения в чат | FastChat",
 };
 
 export default async function ChatRequsts() {

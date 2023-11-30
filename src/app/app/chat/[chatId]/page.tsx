@@ -1,5 +1,4 @@
 import { getServerSession } from "next-auth/next";
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -11,9 +10,21 @@ import ChatInput from "../ChatInput";
 const dynamic = "force-dynamic";
 const revalidate = 0;
 
-export const metadata: Metadata = {
-  title: "Чат",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { chatId: string };
+}) {
+  const session = await getServerSession(authOptions);
+  if (!session) notFound();
+  const [userId1, userId2] = params.chatId.split("--");
+  const { user } = session;
+
+  const chatPartnerId = user.id === userId1 ? userId2 : userId1;
+  const chatPartner = (await db.get(`user:${chatPartnerId}`)) as User;
+
+  return { title: `${chatPartner.name} | FastChat` };
+}
 
 interface ChatProps {
   params: {

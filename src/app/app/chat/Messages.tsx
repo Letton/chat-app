@@ -72,7 +72,13 @@ export default function Messages({
                   )}
                 >
                   <span>
-                    <Markdown className="break-all">{message.text}</Markdown>
+                    <Markdown
+                      className="break-all"
+                      allowedElements={["strong", "em"]}
+                      unwrapDisallowed={true}
+                    >
+                      {message.text}
+                    </Markdown>
                   </span>
                   <span className="ml-2 text-xs text-muted-foreground">
                     {formatTimeStamp(message.timestamp)}
