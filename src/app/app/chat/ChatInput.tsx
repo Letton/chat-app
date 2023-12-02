@@ -47,11 +47,11 @@ export default function ChatInput({ chatId }: ChatInputProps) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <Button size="icon" className="ml-2 h-[38px] " disabled={isLoading}>
+      <Button size="icon" className="ml-2 h-[38px] " disabled={isLoading} onClick={sendMessage}>
         {isLoading ? (
           <Loader2 className="h-4 w-4 animate-spin" />
         ) : (
-          <SendHorizontal className="h-4 w-4" onClick={sendMessage} />
+          <SendHorizontal className="h-4 w-4" />
         )}
       </Button>
     </div>

@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       return new Response("Чат уже существует", { status: 400 });
     }
 
-    pusherServer.trigger(
+    await pusherServer.trigger(
       toPusherKey(`user:${idToAdd}:incoming_chat_requests`),
       "incoming_chat_requests",
       {
@@ -59,7 +59,7 @@ export async function POST(req: Request) {
       }
     );
 
-    db.sadd(`user:${idToAdd}:incoming_chat_requests`, session.user.id);
+    await db.sadd(`user:${idToAdd}:incoming_chat_requests`, session.user.id);
 
     return new Response("OK");
   } catch {
